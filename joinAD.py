@@ -19,13 +19,13 @@ import time
 import shlex, subprocess
 import ldap3
 import argparse
-import radium.utils.pwcrypt as pwcrypt
+#import radium.utils.pwcrypt as pwcrypt
 
 # create logger with 'spam_application'
 logger = logging.getLogger('joinAD')
 logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
-fh = logging.FileHandler('/var/lib/radium/joinAD.log')
+fh = logging.FileHandler('/var/log/joinAD.log')
 fh.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
@@ -284,7 +284,7 @@ if __name__ == "__main__":
         logger.info('user = {}, password = {}, domain = {}'.format(user, 'XXXXXXXX', domain))
 
         # Decrypt password
-        password = pwcrypt.decrypt(password)
+        # password = pwcrypt.decrypt(password)
 
         if not leave_AD:
             logger.info("Joining realm...")
