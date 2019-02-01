@@ -1,0 +1,30 @@
+---
+- name: Install Latest VMWare Tools
+  yum:
+    name: open-vm-tools
+    state: latest
+  tags:  vm
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version >= "6"
+
+- name: Be sure vmtoolsd is running and enabled
+  service:
+    name: vmtoolsd
+    state: started
+    enabled: yes
+  tags: vm
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version >= "6"
+
+#- name: Be sure vmware-tools is running and enabled | CentOS 5/6
+#  service:
+#    name: vmware-tools
+#    state: started
+#    enabled: yes
+#  tags: vm
+#  when: ansible_distribution == "CentOS" and ansible_distribution_major_version < "7"
+
+- name: Install System Updates 
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"

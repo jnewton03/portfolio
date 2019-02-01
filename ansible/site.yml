@@ -1,0 +1,9 @@
+---
+# file: site.yml
+- hosts: prod
+  roles: 
+    - common
+- hosts: build,devops
+  roles:  
+    - git
+

@@ -1,0 +1,19 @@
+---
+- set_fact:
+    ius_distribution_abbrev: "{{ (ansible_distribution == 'CentOS') | ternary('centos', 'rhel') }}"
+  tags: git
+
+- name: install IUS release package
+  yum:
+    name: "https://{{ ius_distribution_abbrev }}{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
+    state: present
+  when: ansible_os_family == 'RedHat'
+  tags: git
+
+- name: install latest Git
+  yum:
+    name: git
+    disablerepo: base,updates,epel
+    enablerepo: ius
+    state: latest
+  tags: git
